@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNR - Notícias</title>
+    
+    <!-- Google Fonts: Inter (Corpo) e Merriweather (Títulos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           DESIGN TOKENS OFICIAIS (Variáveis CSS)
+           ========================================================================== */
+        :root {
+            /* AZUL - Cor primária */
+            --blue-950: #0f172a;
+            --blue-900: #1e3a8a;
+            --blue-800: #1e40af;
+            --blue-700: #1d4ed8;
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --blue-400: #60a5fa;
+            --blue-100: #dbeafe;
+            --blue-50:  #eff6ff;
+
+            /* VERDE - Cor de destaque (Baseado no #067530) */
+            --green-900: #033d1a;
+            --green-800: #044a1f;
+            --green-700: #055e26;
+            --green-600: #067530; /* Cor Central */
+            --green-500: #2b7a4b;
+            --green-400: #4d9269;
+            --green-300: #77ae8d;
+            --green-200: #a8ccb6;
+            --green-100: #d1e5d8;
+            --green-50:  #ebf4ee;
+
+            /* NEUTROS */
+            --gray-900: #111827;
+            --gray-700: #374151;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50:  #f9fafb;
+
+            /* TIPOGRAFIA */
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* ESPAÇAMENTOS E BORDAS */
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-base: all 0.3s ease;
+        }
+
+        /* ==========================================================================
+           RESET E BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ==========================================================================
+           COMPONENTES REUTILIZÁVEIS
+           ========================================================================== */
+        
+        /* HEADER */
+        .site-header { background-color: var(--blue-950); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu { display: flex; gap: 32px; align-items: center; }
+        .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
+        .nav-menu a:hover { color: var(--green-400); }
+        .nav-menu svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* HERO SECTION (Modificado para página interna) */
+        .hero { 
+            background-color: var(--blue-950); 
+            background-image: 
+                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            background-position: center center;
+            color: white; 
+            padding: 100px 0; /* Menor que a home */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; 
+        }
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.7) 100%);
+            z-index: 1; 
+        }
+        .hero .container { position: relative; z-index: 2; width: 100%; }
+        .hero-content { max-width: 700px; }
+        .hero-title { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+        .hero-title .text-green { color: var(--green-500); }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 500; color: var(--gray-100); line-height: 1.4; }
+
+        /* CARDS DE NOTÍCIAS */
+        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+        .news-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; height: 280px; text-decoration: none; display: block; }
+        .news-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; z-index: 1; }
+        .news-card:hover img { transform: scale(1.05); }
+        .news-card-overlay { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0) 80%); z-index: 2; pointer-events: none; }
+        .news-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; color: white; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; }
+        .news-card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+        .news-card-date { font-size: 0.875rem; color: var(--gray-300); }
+        .news-card-date span { color: var(--green-400); font-weight: 600; }
+
+        /* QUICK LINKS */
+        .quick-links { padding: 64px 0; background-color: white; }
+        .quick-links-grid { display: grid; gap: 24px; }
+        .quick-links-grid.cols-3 { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; }
+        .quick-link-card { background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: var(--transition-base); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+        .quick-link-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--green-200); }
+        .quick-link-card svg { width: 48px; height: 48px; fill: var(--blue-950); }
+        .quick-link-card span { font-weight: 600; color: var(--blue-950); font-size: 1.125rem; }
+
+        /* FOOTER */
+        .site-footer { background-color: var(--blue-950); color: var(--gray-300); border-top: 4px solid var(--green-600); padding: 64px 0 24px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 48px; }
+        .footer-col h4 { color: var(--gray-50); font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 24px; }
+        .footer-contact { list-style: none; padding: 0; }
+        .footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.95rem; }
+        .footer-contact svg { width: 20px; height: 20px; fill: var(--green-600); flex-shrink: 0; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .footer-links li::before { content: "•"; color: var(--green-600); font-weight: bold; font-size: 1.2rem; line-height: 1; }
+        .footer-links a { transition: var(--transition-base); }
+        .footer-links a:hover { color: var(--green-400); }
+        .footer-brand img { max-width: 180px; margin-bottom: 24px; display: block; }
+        .footer-socials { display: flex; gap: 16px; }
+        .footer-socials a { color: var(--gray-50); transition: var(--transition-base); display: flex; align-items: center; justify-content: center; }
+        .footer-socials a:hover { color: var(--green-600); }
+        .footer-socials svg { width: 24px; height: 24px; fill: currentColor; }
+        .footer-bottom { border-top: 1px solid var(--gray-700); padding-top: 24px; text-align: center; font-size: 0.875rem; }
+
+        /* ==========================================================================
+           ESTILOS ESPECÍFICOS DA PÁGINA DE NOTÍCIAS
+           ========================================================================== */
+        .page-noticias { padding: 64px 0 24px; }
+        
+        .noticias-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--gray-200); padding-bottom: 16px; }
+        .noticias-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--green-600); position: relative; display: inline-block; }
+        .noticias-title::after { content: ''; position: absolute; bottom: -17px; left: 0; width: 100%; height: 3px; background-color: var(--green-600); }
+
+        .noticias-filters { display: flex; gap: 16px; align-items: center; }
+        
+        /* Search Input */
+        .search-box { position: relative; display: flex; align-items: center; }
+        .search-box input { width: 280px; padding: 10px 40px 10px 16px; border: 1px solid var(--green-600); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.95rem; color: var(--gray-900); outline: none; transition: var(--transition-base); }
+        .search-box input:focus { box-shadow: 0 0 0 3px var(--green-100); }
+        .search-box svg { position: absolute; right: 12px; width: 20px; height: 20px; fill: var(--green-600); pointer-events: none; }
+
+        /* Date Filter */
+        .date-filter { display: flex; align-items: center; background-color: var(--green-600); color: white; border-radius: var(--radius-md); overflow: hidden; cursor: pointer; transition: var(--transition-base); }
+        .date-filter:hover { background-color: var(--green-700); }
+        .date-filter span { padding: 10px 16px; font-size: 0.95rem; font-weight: 500; border-right: 1px solid rgba(255,255,255,0.2); }
+        .date-filter .icon-wrap { padding: 10px 12px; display: flex; align-items: center; justify-content: center; }
+        .date-filter svg { width: 20px; height: 20px; fill: white; }
+
+        /* Pagination */
+        .pagination-container { display: flex; justify-content: flex-end; align-items: center; gap: 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--gray-200); font-size: 0.95rem; color: var(--gray-700); font-weight: 500; }
+        .items-per-page { display: flex; align-items: center; gap: 8px; }
+        .items-per-page select { padding: 6px 12px; border: 1px solid var(--gray-300); border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; outline: none; cursor: pointer; }
+        .pagination-controls { display: flex; align-items: center; gap: 16px; }
+        .pagination-arrows { display: flex; gap: 8px; }
+        .pagination-arrows button { background: none; border: none; font-size: 1.25rem; color: var(--gray-500); cursor: pointer; transition: var(--transition-base); display: flex; align-items: center; justify-content: center; padding: 4px; }
+        .pagination-arrows button:hover { color: var(--green-600); }
+
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="https://placehold.co/150x50/1e3a8a/ffffff?text=CBNR+Branco" alt="Logo CBNR">
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>
+                        <a href="#">A Convenção 
+                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Recursos 
+                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Ministérios 
+                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </a>
+                    </li>
+                    <li><a href="#">Agenda</a></li>
+                    <li><a href="#">Contatos</a></li>
+                    <li><a href="#">Oferte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Edificando vidas<br>
+                    para <span class="text-green">Cristo</span>
+                </h1>
+                <p class="hero-subtitle">Informações, testemunhos e reflexões da Convenção Batista para inspirar seu dia a dia e fortalecer sua fé.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT - NOTÍCIAS -->
+    <main class="container page-noticias">
+        
+        <!-- Top Bar (Title + Filters) -->
+        <div class="noticias-header">
+            <h2 class="noticias-title">Notícias</h2>
+            
+            <div class="noticias-filters">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar Notícia...">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </div>
+                <div class="date-filter">
+                    <span>Data</span>
+                    <div class="icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Grid -->
+        <div class="news-grid" id="noticias-grid">
+            <!-- Cards injetados via JS -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <div class="items-per-page">
+                Items per page: 
+                <select>
+                    <option value="9">9</option>
+                    <option value="18">18</option>
+                    <option value="27">27</option>
+                </select>
+            </div>
+            <div class="pagination-controls">
+                <span>1 - 9 de 100</span>
+                <div class="pagination-arrows">
+                    <button aria-label="Página anterior">&lt;</button>
+                    <button aria-label="Próxima página">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- QUICK LINKS (3 Colunas) -->
+    <section class="quick-links">
+        <div class="container">
+            <div class="quick-links-grid cols-3">
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span>Missões</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                    <span>Eventos</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>Oferte</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- COLUNA 1 - Contato -->
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+                            Segunda a sexta: 9h - 18h
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
+                            Rua Jundiaí, 513, Tirol, Natal / 59020-120
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M6.6 9.4c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V19c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.4z"/></svg>
+                            (84) 3222-5501
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            batistasrn@batistasrn.org.br
+                        </li>
+                    </ul>
+                </div>
+    
+                <!-- COLUNA 2 - Links Úteis -->
+                <div class="footer-col">
+                    <h4>Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Calendário</a></li>
+                        <li><a href="#">História</a></li>
+                        <li><a href="#">Biblioteca</a></li>
+                        <li><a href="#">Missões</a></li>
+                    </ul>
+                </div>
+    
+                <!-- COLUNA 3 - Logo e Redes Sociais -->
+                <div class="footer-col footer-brand">
+                    <img src="https://placehold.co/180x60/0f172a/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
+                    <div class="footer-socials">
+                        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBNR. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // TODO: substituir por fetch da API
+            // Mock JSON simulando o retorno de uma API de Notícias (9 itens para a página de listagem)
+            const mockNewsData = {
+                "status": "success",
+                "data": Array.from({ length: 9 }, (_, i) => ({
+                    "id": i + 1,
+                    "title": "Capacitação Para escola bíblica",
+                    "date": "Jun 6",
+                    "year": "2025",
+                    "image": `https://placehold.co/600x400/374151/ffffff?text=Noticia+${i + 1}`,
+                    "link": "#"
+                }))
+            };
+
+            const newsContainer = document.getElementById('noticias-grid');
+
+            // Função para renderizar as notícias na tela
+            function renderNews(items) {
+                newsContainer.innerHTML = '';
+
+                items.forEach(item => {
+                    const card = document.createElement('a');
+                    card.href = item.link;
+                    card.className = 'news-card';
+
+                    card.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="news-card-overlay"></div>
+                        <div class="news-card-content">
+                            <h3 class="news-card-title">${item.title}</h3>
+                            <div class="news-card-date">${item.date}, <span>${item.year}</span></div>
+                        </div>
+                    `;
+
+                    newsContainer.appendChild(card);
+                });
+            }
+
+            // Simula o tempo de resposta da API
+            setTimeout(() => {
+                renderNews(mockNewsData.data);
+            }, 300);
+
+        });
+    </script>
+</body>
+</html>
