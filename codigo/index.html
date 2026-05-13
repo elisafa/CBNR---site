@@ -15,16 +15,16 @@
            DESIGN TOKENS OFICIAIS (Variáveis CSS)
            ========================================================================== */
         :root {
-            /* AZUL - Cor primária */
-            --blue-950: #0f172a;
-            --blue-900: #1e3a8a;
-            --blue-800: #1e40af;
-            --blue-700: #1d4ed8;
-            --blue-600: #2563eb;
-            --blue-500: #3b82f6;
-            --blue-400: #60a5fa;
-            --blue-100: #dbeafe;
-            --blue-50:  #eff6ff;
+          /* AZUL - Cor primária (Baseado no #1F3456) */
+            --blue-950: rgba(31, 52, 86, 0.80);
+            --blue-900: #132138;
+           --blue-800: #1F3456; /* Cor Central */
+            --blue-700: #2a4775;
+            --blue-600: #385d99;
+            --blue-500: #4b78c2;
+            --blue-400: #789cd6;
+            --blue-100: #d8e3f2;
+            --blue-50:  #edf2f8;
 
             /* VERDE - Cor de destaque (Baseado no #067530) */
             --green-900: #033d1a;
@@ -75,7 +75,7 @@
            ========================================================================== */
         
         /* HEADER */
-        .site-header { background-color: var(--blue-950); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .site-header { background-color: rgba(31, 52, 86, 0.80); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
         .site-header .container { display: flex; justify-content: space-between; align-items: center; }
         .nav-menu { display: flex; gap: 32px; align-items: center; }
         .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
