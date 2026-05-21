@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNR - Coordenadores</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           DESIGN TOKENS OFICIAIS (Variáveis CSS)
+           ========================================================================== */
+        :root {
+            /* AZUL - Cor primária (Baseado no #1F3456) */
+            --blue-950: rgba(31, 52, 86, 0.80); /* Cor do Header, Hero e Footer */
+            --blue-900: #132138;
+            --blue-800: #1F3456; /* Cor Central Sólida */
+            --blue-700: #2a4775;
+            --blue-600: #385d99;
+            --blue-500: #4b78c2;
+            --blue-400: #789cd6;
+            --blue-100: #d8e3f2;
+            --blue-50:  #edf2f8;
+
+            /* VERDE - Cor de destaque (Baseado no #067530) */
+            --green-900: #033d1a;
+            --green-800: #044a1f;
+            --green-700: #055e26;
+            --green-600: #067530; /* Cor Central */
+            --green-500: #2b7a4b;
+            --green-400: #4d9269;
+            --green-300: #77ae8d;
+            --green-200: #a8ccb6;
+            --green-100: #d1e5d8;
+            --green-50:  #ebf4ee;
+
+            /* NEUTROS */
+            --gray-900: #111827;
+            --gray-700: #374151;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50:  #f9fafb;
+
+            /* TIPOGRAFIA */
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* ESPAÇAMENTOS E BORDAS */
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-base: all 0.3s ease;
+        }
+
+        /* ==========================================================================
+           RESET E BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ==========================================================================
+           COMPONENTES REUTILIZÁVEIS
+           ========================================================================== */
+        
+        /* HEADER */
+        .site-header { background-color: var(--blue-950); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu { display: flex; gap: 32px; align-items: center; }
+        .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
+        .nav-menu a:hover { color: var(--green-400); }
+        .nav-menu svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* HERO SECTION */
+        .hero { 
+            background-color: var(--blue-950); 
+            background-image: 
+                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            background-position: center center;
+            color: white; 
+            padding: 100px 0; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; 
+        }
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: radial-gradient(circle at center, transparent 0%, rgba(31, 52, 86, 0.7) 100%);
+            z-index: 1; 
+        }
+        .hero .container { position: relative; z-index: 2; width: 100%; }
+        .hero-content { max-width: 700px; }
+        .hero-title { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+        .hero-title .text-green { color: var(--green-500); }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 500; color: var(--gray-100); line-height: 1.4; }
+
+        /* TÍTULO DE SEÇÃO */
+        .section-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--green-600); margin-bottom: 40px; }
+
+        /* QUICK LINKS */
+        .quick-links { padding: 64px 0; background-color: white; }
+        .quick-links-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 24px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+        .quick-link-card { background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: var(--transition-base); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-decoration: none; }
+        .quick-link-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--green-200); }
+        .quick-link-card svg { width: 48px; height: 48px; fill: var(--blue-800); }
+        .quick-link-card span { font-weight: 600; color: var(--blue-800); font-size: 1.125rem; }
+
+        /* FOOTER */
+        .site-footer { background-color: var(--blue-950); color: var(--gray-300); border-top: 4px solid var(--green-600); padding: 64px 0 24px; backdrop-filter: blur(8px); }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 48px; }
+        .footer-col h4 { color: var(--gray-50); font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 24px; }
+        .footer-contact { list-style: none; padding: 0; }
+        .footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.95rem; }
+        .footer-contact svg { width: 20px; height: 20px; fill: var(--green-600); flex-shrink: 0; }
+        
+        /* Links Úteis em 2 Colunas */
+        .footer-links { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px 16px; 
+            list-style: none; 
+            padding: 0; 
+        }
+        .footer-links li { display: flex; align-items: center; gap: 8px; }
+        .footer-links li::before { content: "•"; color: var(--green-600); font-weight: bold; font-size: 1.2rem; line-height: 1; }
+        .footer-links a { transition: var(--transition-base); font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--green-400); }
+        
+        .footer-brand img { max-width: 220px; margin-bottom: 24px; display: block; }
+        .footer-socials { display: flex; gap: 16px; }
+        .footer-socials a { color: var(--gray-50); transition: var(--transition-base); display: flex; align-items: center; justify-content: center; }
+        .footer-socials a:hover { color: var(--green-600); }
+        .footer-socials svg { width: 24px; height: 24px; fill: currentColor; }
+        .footer-bottom { border-top: 1px solid var(--gray-700); padding-top: 24px; text-align: center; font-size: 0.875rem; }
+
+        /* ==========================================================================
+           ESTILOS ESPECÍFICOS DA PÁGINA: COORDENADORES (CORREÇÃO DOS CARDS FIGMA)
+           ========================================================================== */
+        .page-coordenadores { padding: 64px 0 24px; }
+        
+        .coordenadoras-list { display: flex; flex-direction: column; gap: 80px; margin-top: 40px; width: 100%; }
+
+        .coord-wrapper { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+
+        /* Logo alinhada com o limite do container do site */
+        .coord-logo-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+        }
+        .coord-wrapper.is-reversed .coord-logo-container { justify-content: flex-end; }
+
+        .coord-logo { max-width: 300px; width: 100%; }
+        .coord-logo img { width: 100%; height: auto; display: block; }
+
+        /* AJUSTE DOS CARDS: Faixas com extremidades em formato de pílula assimétrica */
+        .coord-card-section {
+            width: 100%;
+            position: relative;
+        }
+        .coord-card-section.bg-blue { 
+            background-color: var(--blue-800); 
+            border-radius: var(--radius-lg) 160px 160px var(--radius-lg);
+        }
+        .coord-card-section.bg-green { 
+            background-color: var(--green-600); 
+            border-radius: 160px var(--radius-lg) var(--radius-lg) 160px;
+        }
+
+        /* Grid interno centralizado em 1200px */
+        .coord-card-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+            min-height: 280px;
+            align-items: center;
+        }
+        .coord-wrapper.is-reversed .coord-card-container { grid-template-columns: 0.8fr 1.2fr; }
+
+        /* Coluna de Texto */
+        .coord-text {
+            padding: 40px 0;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+        .coord-wrapper:not(.is-reversed) .coord-text { padding-right: 48px; }
+        .coord-wrapper.is-reversed .coord-text { padding-left: 48px; }
+
+        .coord-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: var(--font-body);
+        }
+
+        .coord-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+
+        .coord-meta-item svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        /* AJUSTE DA IMAGEM: Suporte a transbordo vertical (vazamento) */
+        .coord-img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        /* Permite que as fotos flutuem sobre as bordas do card sem cortar as cabeças */
+        .coord-img img {
+            position: absolute;
+            bottom: 0;
+            height: 120%;
+            width: auto;
+            max-width: none;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Fotos COMIS Lado a Lado Sem Espaçamento com efeito flutuante */
+        .comis-photos {
+            display: flex;
+            gap: 0;
+            height: 120%;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .comis-photos img {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom center;
+        }
+
+        /* Inversão da ordem das colunas para COMIS */
+        .coord-wrapper.is-reversed .coord-text { order: 2; }
+        .coord-wrapper.is-reversed .coord-img { order: 1; }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .coord-card-container { grid-template-columns: 1fr !important; padding: 0 24px; }
+            .coord-card-section.bg-blue, .coord-card-section.bg-green { border-radius: var(--radius-lg); }
+            .coord-text { padding: 32px 0 16px !important; }
+            .coord-img { height: 280px; overflow: hidden; }
+            .coord-img img, .comis-photos { height: 100%; position: relative; }
+            .coord-wrapper.is-reversed .coord-text { order: 1; }
+            .coord-wrapper.is-reversed .coord-img { order: 2; }
+            .coord-wrapper.is-reversed .coord-logo-container { justify-content: flex-start; }
+            .quick-links-grid { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://placehold.co/150x50/1e3a8a/ffffff?text=CBNR+Branco" alt="Logo CBNR">
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">A Convenção <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Recursos <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Ministérios <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Agenda</a></li>
+                    <li><a href="#">Contatos</a></li>
+                    <li><a href="#">Oferte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Liderança a<br>
+                    <span class="text-green">Serviço</span>
+                </h1>
+                <p class="hero-subtitle">Conheça os departamentos que coordenam as frentes de trabalho da CBNR</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="page-coordenadores">
+        
+        <div class="container">
+            <h2 class="section-title">Cordenadoria</h2>
+        </div>
+
+        <div class="coordenadoras-list" id="coordenadorias-container">
+            </div>
+
+    </main>
+
+    <section class="quick-links">
+        <div class="container">
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <span>Quem Somos</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                    <span>Nossa História</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <span>Pastores</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+                            Segunda a sexta: 9h - 18h
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
+                            Rua Jundiaí, 513, Tirol, Natal / 59020-120
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M6.6 9.4c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V19c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.4z"/></svg>
+                            (84) 3222-5501
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            batistasrn@batistasrn.org.br
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="footer-col">
+                    <h4>Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Calendário</a></li>
+                        <li><a href="#">Biblioteca</a></li>
+                        <li><a href="#">História</a></li>
+                        <li><a href="#">Missões</a></li>
+                        <li><a href="#">Quem somos</a></li>
+                        <li><a href="#">Oferte</a></li>
+                    </ul>
+                </div>
+    
+                <div class="footer-col footer-brand">
+                    <img src="https://placehold.co/240x80/0f172a/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
+                    <div class="footer-socials">
+                        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBNR. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // TODO: substituir por fetch da API
+            const mockCoordenadorias = {
+                "status": "success",
+                "data": [
+                    {
+                        "id": "cocap",
+                        "nome": "COCAP ( Coordenadoria De Capacitação)",
+                        "logo": "https://placehold.co/300x80/ffffff/3b82f6?text=COCAP+Capacita%C3%A7%C3%A3o",
+                        "coordenadores": ["Pr. Artur Isaac"],
+                        "telefone": "(84) 99153-9955",
+                        "bgClass": "bg-blue",
+                        "isReversed": false,
+                        "photoHtml": '<img src="assets/img/coordenadores/pr-artur-isaac.png" alt="Pr. Artur Isaac">'
+                    },
+                    {
+                        "id": "comis",
+                        "nome": "COMIS (Coordenadoria de Missões)",
+                        "logo": "https://placehold.co/300x80/ffffff/067530?text=COMIS+Miss%C3%B5es",
+                        "coordenadores": ["Pr. Exequias Cerqueira", "Miss. Maria Helena"],
+                        "telefone": "(84) 99894-0000",
+                        "bgClass": "bg-green",
+                        "isReversed": true,
+                        "photoHtml": `
+                            <div class="comis-photos">
+                              <img src="assets/img/coordenadores/maria-helena.png" alt="Maria Helena">
+                              <img src="assets/img/coordenadores/pr-exequias.png" alt="Pr. Exequias">
+                            </div>
+                        `
+                    },
+                    {
+                        "id": "coad",
+                        "nome": "COAD (Coordenadoria Administrativa)",
+                        "logo": "https://placehold.co/300x80/ffffff/eab308?text=COAD+Administrativa",
+                        "coordenadores": ["Moab de Lima Batista"],
+                        "telefone": "(84) 99894-0000",
+                        "bgClass": "bg-blue",
+                        "isReversed": false,
+                        "photoHtml": '<img src="assets/img/coordenadores/moab.png" alt="Moab">'
+                    }
+                ]
+            };
+
+            const container = document.getElementById('coordenadorias-container');
+
+            function renderCoordenadorias(items) {
+                container.innerHTML = '';
+
+                items.forEach(item => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = `coord-wrapper ${item.isReversed ? 'is-reversed' : ''}`;
+
+                    const coordsHtml = item.coordenadores.map(nome => `
+                        <div class="coord-meta-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <span>${nome}</span>
+                        </div>
+                    `).join('');
+
+                    wrapper.innerHTML = `
+                        <div class="coord-logo-container">
+                            <div class="coord-logo">
+                                <img src="${item.logo}" alt="Logo ${item.id}">
+                            </div>
+                        </div>
+                        
+                        <div class="coord-card-section ${item.bgClass}">
+                            <div class="coord-card-container">
+                                <div class="coord-text">
+                                    <h3>${item.nome}</h3>
+                                    ${coordsHtml}
+                                    <div class="coord-meta-item">
+                                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                                        <span>${item.telefone}</span>
+                                    </div>
+                                </div>
+
+                                <div class="coord-img">
+                                    ${item.photoHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(wrapper);
+                });
+            }
+
+            // Simula tempo de resposta da API
+            setTimeout(() => {
+                renderCoordenadorias(mockCoordenadorias.data);
+            }, 300);
+
+        });
+    </script>
+</body>
+</html>
