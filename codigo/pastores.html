@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNR - Nossos Pastores</title>
+    
+    <!-- Google Fonts: Inter (Corpo) e Merriweather (Títulos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           DESIGN TOKENS OFICIAIS (Variáveis CSS)
+           ========================================================================== */
+        :root {
+            /* AZUL - Cor primária */
+            --blue-950: rgba(31, 52, 86, 0.80);
+            --blue-900: #132138;
+            --blue-800: #1F3456;
+            --blue-700: #2a4775;
+            --blue-600: #385d99;
+            --blue-500: #4b78c2;
+            --blue-400: #789cd6;
+            --blue-100: #d8e3f2;
+            --blue-50: #edf2f8;
+
+            /* VERDE - Cor de destaque */
+            --green-900: #033d1a;
+            --green-800: #044a1f;
+            --green-700: #055e26;
+            --green-600: #067530;
+            --green-500: #2b7a4b;
+            --green-400: #4d9269;
+            --green-300: #77ae8d;
+            --green-200: #a8ccb6;
+            --green-100: #d1e5d8;
+            --green-50: #ebf4ee;
+
+            /* NEUTROS */
+            --gray-900: #111827;
+            --gray-700: #374151;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50: #f9fafb;
+
+            /* TIPOGRAFIA */
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* ESPAÇAMENTOS E BORDAS */
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-base: all 0.3s ease;
+        }
+
+        /* ==========================================================================
+           RESET E BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ==========================================================================
+           COMPONENTES REUTILIZÁVEIS
+           ========================================================================== */
+        
+        /* HEADER */
+        .site-header { background-color: var(--blue-950); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu { display: flex; gap: 32px; align-items: center; }
+        .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
+        .nav-menu a:hover { color: var(--green-400); }
+        .nav-menu svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* HERO SECTION */
+        .hero { 
+            background-color: var(--blue-950); 
+            background-image: 
+                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            background-position: center center;
+            color: white; 
+            padding: 100px 0; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; 
+        }
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: radial-gradient(circle at center, transparent 0%, rgba(31, 52, 86, 0.7) 100%);
+            z-index: 1; 
+        }
+        .hero .container { position: relative; z-index: 2; width: 100%; }
+        .hero-content { max-width: 700px; }
+        .hero-title { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+        .hero-title .text-green { color: var(--green-500); }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 500; color: var(--gray-100); line-height: 1.4; }
+
+        /* QUICK LINKS */
+        .quick-links { padding: 64px 0; background-color: white; }
+        .quick-links-grid { display: grid; gap: 24px; }
+        .quick-links-grid.cols-3 { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; }
+        .quick-link-card { background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: var(--transition-base); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-decoration: none; }
+        .quick-link-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--green-200); }
+        .quick-link-card svg { width: 48px; height: 48px; fill: var(--blue-800); }
+        .quick-link-card span { font-weight: 600; color: var(--blue-800); font-size: 1.125rem; }
+
+        /* ==========================================================================
+           FOOTER (NOVO DESIGN)
+           ========================================================================== */
+        .site-footer { background-color: var(--blue-800); color: white; padding: 64px 0 16px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 40px; margin-bottom: 32px; align-items: start; }
+        .footer-col h4 { color: white; font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 24px; display: inline-block; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 4px; }
+        .footer-contact { list-style: none; }
+        .footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.9rem; font-family: var(--font-body); }
+        .footer-contact svg { width: 20px; height: 20px; fill: transparent; stroke: white; stroke-width: 1.5px; flex-shrink: 0; }
+        .footer-links-wrapper { display: flex; flex-direction: column; }
+        .footer-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 24px; }
+        .footer-links li { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-family: var(--font-body); }
+        .footer-links li::before { content: "•"; color: white; font-size: 1.2rem; line-height: 1; }
+        .footer-links a:hover { opacity: 0.7; }
+        .footer-socials { display: flex; gap: 16px; align-items: center; }
+        .footer-socials a { color: white; transition: opacity 0.3s ease; display: flex; }
+        .footer-socials a:hover { opacity: 0.7; }
+        .footer-socials svg { width: 24px; height: 24px; fill: white; stroke: none; }
+        .footer-brand { display: flex; justify-content: flex-end; align-items: center; height: 100%; }
+        .footer-brand img { max-width: 260px; display: block; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; text-align: center; font-size: 0.75rem; font-family: var(--font-body); font-weight: 600; }
+
+
+        /* ==========================================================================
+           ESTILOS ESPECÍFICOS DA PÁGINA: PASTORES
+           ========================================================================== */
+        .page-pastores { padding: 64px 0 24px; }
+        
+        .pastores-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--gray-200); padding-bottom: 16px; }
+        .pastores-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--green-600); position: relative; display: inline-block; }
+        .pastores-title::after { content: ''; position: absolute; bottom: -17px; left: 0; width: 100%; height: 3px; background-color: var(--green-600); }
+
+        /* Search Input */
+        .search-box { position: relative; display: flex; align-items: center; }
+        .search-box input { width: 280px; padding: 10px 40px 10px 16px; border: 1px solid var(--green-600); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.95rem; color: var(--gray-900); outline: none; transition: var(--transition-base); }
+        .search-box input:focus { box-shadow: 0 0 0 3px var(--green-100); }
+        .search-box svg { position: absolute; right: 12px; width: 20px; height: 20px; fill: var(--green-600); pointer-events: none; }
+
+        /* ACCORDION PASTORES */
+        .accordion-container { max-width: 1000px; margin: 40px auto 0; }
+        .accordion-item { border-bottom: 2px solid var(--gray-200); }
+        .accordion-header { display: flex; align-items: center; justify-content: center; position: relative; padding: 24px 0; cursor: pointer; font-weight: 700; font-size: 1.15rem; color: var(--blue-800); text-transform: uppercase; transition: var(--transition-base); letter-spacing: 0.5px; }
+        .accordion-header:hover { color: var(--green-600); }
+        .accordion-header svg { position: absolute; right: 16px; width: 24px; height: 24px; fill: currentColor; transition: transform 0.3s ease; }
+        
+        .accordion-content { display: none; padding: 24px 0; }
+        .accordion-item.active .accordion-content { display: block; animation: fadeIn 0.3s ease; }
+        .accordion-item.active .accordion-header svg { transform: rotate(180deg); }
+
+        /* DETALHES DO PASTOR (Área Expandida) */
+        .pastor-details {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background-color: var(--gray-50);
+            padding: 32px;
+            border-radius: var(--radius-md);
+        }
+
+        .pastor-photo-wrapper {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .pastor-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pastor-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+        }
+
+        .info-row svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gray-700);
+            stroke-width: 1.5px;
+            fill: none;
+            flex-shrink: 0;
+        }
+
+        .info-row a { transition: color 0.2s ease; }
+        .info-row a:hover { color: var(--green-600); }
+
+        /* Paginação Visual (reticências no final da lista) */
+        .list-end-indicator {
+            text-align: center;
+            color: var(--gray-900);
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin: 32px 0;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .pastores-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .search-box, .search-box input { width: 100%; }
+            .accordion-header { font-size: 1rem; padding: 20px 40px 20px 0; text-align: left; justify-content: flex-start; }
+            .pastor-details { flex-direction: column; text-align: center; padding: 24px 16px; }
+            .info-row { flex-direction: column; gap: 4px; text-align: center; }
+            .quick-links-grid.cols-3 { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-brand { justify-content: center; margin-top: 24px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://placehold.co/150x50/1F3456/ffffff?text=CBNR+Branco" alt="Logo CBNR">
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">A Convenção <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Recursos <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Ministérios <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="calendario.html">Agenda</a></li>
+                    <li><a href="contatos.html">Contatos</a></li>
+                    <li><a href="#">Oferte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="text-green">25 anos</span> mudando<br>
+                    vidas
+                </h1>
+                <p class="hero-subtitle">Conectando igrejas batistas em todo o RN para expandir o Reino de Deus</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container page-pastores">
+        
+        <!-- Header da seção -->
+        <div class="pastores-header">
+            <h2 class="pastores-title">Pastores</h2>
+            
+            <div class="search-box">
+                <input type="text" id="search-pastor" placeholder="Buscar Pastor...">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </div>
+        </div>
+
+        <!-- Accordion Container -->
+        <div class="accordion-container" id="accordion-pastores">
+            <!-- Injetado dinamicamente via JS -->
+        </div>
+
+        <!-- Indicador de continuação -->
+        <div class="list-end-indicator">...</div>
+
+    </main>
+
+    <!-- QUICK LINKS -->
+    <section class="quick-links">
+        <div class="container">
+            <div class="quick-links-grid cols-3">
+                <a href="quem-somos.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <span>Quem Somos</span>
+                </a>
+                <a href="nossa-historia.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                    <span>Nossa História</span>
+                </a>
+                <a href="seminario.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+                    <span>Seminário</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER NOVO DESIGN -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- Coluna 1: Contato -->
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul class="footer-contact">
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Segunda a sexta: 9h - 18h</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Rua Jundiaí, 513, Tirol, Natal / 59020-120</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> (84) 3222-5501</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> batistasrn@batistasrn.org.br</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 2: Links e Redes Sociais -->
+                <div class="footer-col footer-links-wrapper">
+                    <h4>Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><a href="calendario.html">Calendário</a></li>
+                        <li><a href="acervo.html">Biblioteca</a></li>
+                        <li><a href="nossa-historia.html">História</a></li>
+                        <li><a href="#">Missões</a></li>
+                        <li><a href="quem-somos.html">Quem somos</a></li>
+                        <li><a href="#">Oferte</a></li>
+                    </ul>
+                    
+                    <div class="footer-socials">
+                        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Logo -->
+                <div class="footer-col footer-brand">
+                    <img src="https://placehold.co/260x80/1F3456/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Beveloster Consultoria e tecnologia</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // TODO: substituir por fetch da API
+            const mockPastores = [
+                {
+                    "nome": "ADÃO DE SANTANA RIBEIRO",
+                    "esposa": "Jacicléia Alves Ribeiro",
+                    "telefones": "98706-7536 | 98108-3508",
+                    "emailInstitucional": "@missoesnacionais.org.br",
+                    "emailPessoal1": "adaoban@hotmail.com",
+                    "emailPessoal2": "jhacy2007@hotmail.com",
+                    "endereco": "R. Bernardino Sena, 711. Dinarte Mariz - Parelhas/RN - CEP: 59360-000",
+                    "foto": "https://placehold.co/300x300/1F3456/ffffff?text=Pr.+Ad%C3%A3o"
+                },
+                {
+                    "nome": "ADÍLIO MUNIZ PAIVA",
+                    "esposa": "Maria Souza Paiva",
+                    "telefones": "98000-0000 | 98111-1111",
+                    "emailInstitucional": "@cbnr.org.br",
+                    "emailPessoal1": "adilio@gmail.com",
+                    "emailPessoal2": "",
+                    "endereco": "Av. Principal, 100 - Centro - Natal/RN",
+                    "foto": "https://placehold.co/300x300/1F3456/ffffff?text=Pr.+Ad%C3%ADlio"
+                },
+                {
+                    "nome": "ALAN GEORGE DE OLIVEIRA ARAÚJO",
+                    "esposa": "Fernanda Oliveira",
+                    "telefones": "98222-2222",
+                    "emailInstitucional": "",
+                    "emailPessoal1": "alangeorge@yahoo.com",
+                    "emailPessoal2": "",
+                    "endereco": "Rua das Flores, 50 - Tirol - Natal/RN",
+                    "foto": "https://placehold.co/300x300/1F3456/ffffff?text=Pr.+Alan"
+                },
+                {
+                    "nome": "ALANAR ROMÃO CALDAS",
+                    "esposa": "",
+                    "telefones": "98333-3333",
+                    "emailInstitucional": "",
+                    "emailPessoal1": "alanar@hotmail.com",
+                    "emailPessoal2": "",
+                    "endereco": "Rua Nova, 12 - Zona Sul - Parnamirim/RN",
+                    "foto": "https://placehold.co/300x300/1F3456/ffffff?text=Pr.+Alanar"
+                },
+                {
+                    "nome": "ALBERTINO DE SOUSA FERREIRA",
+                    "esposa": "Juliana Ferreira",
+                    "telefones": "98444-4444",
+                    "emailInstitucional": "@igrejabatista.com",
+                    "emailPessoal1": "albertino@gmail.com",
+                    "emailPessoal2": "",
+                    "endereco": "Av. João Pessoa, 45 - Centro - Mossoró/RN",
+                    "foto": "https://placehold.co/300x300/1F3456/ffffff?text=Pr.+Albertino"
+                }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-pastores');
+            const searchInput = document.getElementById('search-pastor');
+
+            // Renderiza o Acordeon
+            function renderPastores(data, searchTerm = "") {
+                accordionContainer.innerHTML = '';
+                let hasResults = false;
+
+                const pastoresFiltrados = data.filter(pastor => 
+                    pastor.nome.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+
+                if (pastoresFiltrados.length > 0) hasResults = true;
+
+                pastoresFiltrados.forEach((pastor, index) => {
+                    const accItem = document.createElement('div');
+                    
+                    // Se estiver buscando e achar resultados, ou for o primeiro item, deixa aberto (opcional)
+                    // Pelo mockup, o primeiro está aberto
+                    accItem.className = `accordion-item ${(index === 0 && !searchTerm) || searchTerm ? 'active' : ''}`;
+
+                    let emailsHtml = '';
+                    if(pastor.emailInstitucional) emailsHtml += `<a href="mailto:${pastor.emailInstitucional}">${pastor.emailInstitucional}</a><br>`;
+                    if(pastor.emailPessoal1) emailsHtml += `<a href="mailto:${pastor.emailPessoal1}">${pastor.emailPessoal1}</a><br>`;
+                    if(pastor.emailPessoal2) emailsHtml += `<a href="mailto:${pastor.emailPessoal2}">${pastor.emailPessoal2}</a>`;
+
+                    accItem.innerHTML = `
+                        <div class="accordion-header">
+                            ${pastor.nome}
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pastor-details">
+                                <div class="pastor-photo-wrapper">
+                                    <img src="${pastor.foto}" alt="Foto do ${pastor.nome}">
+                                </div>
+                                <div class="pastor-info">
+                                    ${pastor.esposa ? `
+                                    <div class="info-row">
+                                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                        <span>${pastor.esposa}</span>
+                                    </div>` : ''}
+                                    
+                                    <div class="info-row">
+                                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                        <span>${pastor.telefones}</span>
+                                    </div>
+
+                                    ${emailsHtml ? `
+                                    <div class="info-row" style="align-items: flex-start;">
+                                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        <div style="display:flex; flex-direction: column;">
+                                            ${emailsHtml}
+                                        </div>
+                                    </div>` : ''}
+
+                                    <div class="info-row">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                        <span>${pastor.endereco}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    accordionContainer.appendChild(accItem);
+                });
+
+                if (!hasResults) {
+                    accordionContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--gray-500);">Nenhum pastor encontrado com este nome.</p>';
+                }
+
+                // Eventos de clique para abrir/fechar
+                const headers = document.querySelectorAll('.accordion-header');
+                headers.forEach(header => {
+                    header.addEventListener('click', function() {
+                        const parent = this.parentElement;
+                        // Fecha os outros (opcional, igual Associações)
+                        document.querySelectorAll('.accordion-item').forEach(item => {
+                            if (item !== parent) item.classList.remove('active');
+                        });
+                        parent.classList.toggle('active');
+                    });
+                });
+            }
+
+            // Monitora busca
+            searchInput.addEventListener('input', (e) => {
+                renderPastores(mockPastores, e.target.value);
+            });
+
+            // Carregamento Inicial
+            setTimeout(() => {
+                renderPastores(mockPastores);
+            }, 200);
+
+        });
+    </script>
+</body>
+</html>
