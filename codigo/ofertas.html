@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNR - Oferte (Plano Cooperativo)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           DESIGN TOKENS OFICIAIS (Variáveis CSS)
+           ========================================================================== */
+        :root {
+            /* AZUL - Cor primária */
+            --blue-950: rgba(31, 52, 86, 0.80);
+            --blue-900: #132138;
+            --blue-800: #1F3456;
+            --blue-700: #2a4775;
+            --blue-600: #385d99;
+            --blue-500: #4b78c2;
+            --blue-400: #789cd6;
+            --blue-100: #d8e3f2;
+            --blue-50: #edf2f8;
+
+            /* VERDE - Cor de destaque */
+            --green-900: #033d1a;
+            --green-800: #044a1f;
+            --green-700: #055e26;
+            --green-600: #067530;
+            --green-500: #2b7a4b;
+            --green-400: #4d9269;
+            --green-300: #77ae8d;
+            --green-200: #a8ccb6;
+            --green-100: #d1e5d8;
+            --green-50: #ebf4ee;
+
+            /* NEUTROS */
+            --gray-900: #111827;
+            --gray-700: #374151;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50: #f9fafb;
+
+            /* TIPOGRAFIA */
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* ESPAÇAMENTOS E BORDAS */
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-base: all 0.3s ease;
+        }
+
+        /* ==========================================================================
+           RESET E BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ==========================================================================
+           COMPONENTES REUTILIZÁVEIS
+           ========================================================================== */
+        
+        /* HEADER */
+        .site-header { background-color: var(--blue-950); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu { display: flex; gap: 32px; align-items: center; }
+        .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
+        .nav-menu a:hover { color: var(--green-400); }
+        .nav-menu svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* HERO SECTION */
+        .hero { 
+            background-color: var(--blue-950); 
+            background-image: 
+                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            background-position: center center;
+            color: white; 
+            padding: 100px 0; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; 
+        }
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: radial-gradient(circle at center, transparent 0%, rgba(31, 52, 86, 0.7) 100%);
+            z-index: 1; 
+        }
+        .hero .container { position: relative; z-index: 2; width: 100%; }
+        .hero-content { max-width: 800px; }
+        .hero-title { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+        .hero-title .text-green { color: var(--green-500); }
+        .hero-subtitle { font-size: 1.25rem; font-weight: 500; color: var(--gray-100); line-height: 1.5; margin-bottom: 32px; max-width: 600px; }
+
+        /* BOTOES */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: var(--transition-base); border: none; gap: 8px; text-decoration: none; font-size: 1rem; }
+        .btn-green { background-color: var(--green-600); color: white; }
+        .btn-green:hover { background-color: var(--green-700); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(6, 117, 48, 0.2); }
+        
+        .btn-outline { background-color: transparent; color: var(--blue-800); border: 1px solid var(--blue-800); }
+        .btn-outline:hover { background-color: var(--blue-50); }
+
+        /* QUICK LINKS */
+        .quick-links { padding: 64px 0; background-color: white; }
+        .quick-links-grid { display: grid; gap: 24px; }
+        .quick-links-grid.cols-3 { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; }
+        .quick-link-card { background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: var(--transition-base); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-decoration: none; }
+        .quick-link-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--green-200); }
+        .quick-link-card svg { width: 48px; height: 48px; fill: var(--blue-800); }
+        .quick-link-card span { font-weight: 600; color: var(--blue-800); font-size: 1.125rem; }
+
+        /* ==========================================================================
+           FOOTER (NOVO DESIGN)
+           ========================================================================== */
+        .site-footer { background-color: var(--blue-800); color: white; padding: 64px 0 16px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 40px; margin-bottom: 32px; align-items: start; }
+        .footer-col h4 { color: white; font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 24px; display: inline-block; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 4px; }
+        .footer-contact { list-style: none; }
+        .footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.9rem; font-family: var(--font-body); }
+        .footer-contact svg { width: 20px; height: 20px; fill: transparent; stroke: white; stroke-width: 1.5px; flex-shrink: 0; }
+        .footer-links-wrapper { display: flex; flex-direction: column; }
+        .footer-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 24px; }
+        .footer-links li { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-family: var(--font-body); }
+        .footer-links li::before { content: "•"; color: white; font-size: 1.2rem; line-height: 1; }
+        .footer-links a:hover { opacity: 0.7; }
+        .footer-socials { display: flex; gap: 16px; align-items: center; }
+        .footer-socials a { color: white; transition: opacity 0.3s ease; display: flex; }
+        .footer-socials a:hover { opacity: 0.7; }
+        .footer-socials svg { width: 24px; height: 24px; fill: white; stroke: none; }
+        .footer-brand { display: flex; justify-content: flex-end; align-items: center; height: 100%; }
+        .footer-brand img { max-width: 260px; display: block; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; text-align: center; font-size: 0.75rem; font-family: var(--font-body); font-weight: 600; }
+
+        /* ==========================================================================
+           ESTILOS ESPECÍFICOS DA PÁGINA: OFERTAS
+           ========================================================================== */
+        .page-oferte { padding: 80px 0; }
+        
+        .oferte-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .oferte-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--blue-800);
+            margin-bottom: 24px;
+        }
+
+        .oferte-content p {
+            color: var(--gray-700);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .oferte-content ul {
+            list-style: none;
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+
+        .oferte-content ul li {
+            position: relative;
+            padding-left: 32px;
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            color: var(--gray-800);
+        }
+
+        .oferte-content ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--green-600);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* CARD DE DADOS BANCÁRIOS E PIX */
+        .donation-card {
+            background-color: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-top: 6px solid var(--green-600);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 100px;
+        }
+
+        .donation-card h3 {
+            font-family: var(--font-heading);
+            color: var(--blue-800);
+            font-size: 1.5rem;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .pix-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            background-color: white;
+            border: 1px dashed var(--gray-400);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .qr-placeholder img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+
+        .pix-key-box {
+            background-color: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 16px;
+        }
+
+        .pix-key-box code {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--gray-900);
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--green-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition-base);
+        }
+
+        .copy-btn:hover { color: var(--green-700); }
+        .copy-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+        .bank-details h4 {
+            color: var(--gray-500);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .bank-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .bank-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bank-item span.label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-bottom: 4px;
+        }
+
+        .bank-item span.value {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .bank-item.full-width { grid-column: 1 / -1; }
+
+        /* Toast de Cópia */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--green-600);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            font-weight: 500;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .oferte-grid { grid-template-columns: 1fr; gap: 48px; }
+            .donation-card { position: static; }
+            .hero-title { font-size: 2.8rem; }
+        }
+        @media (max-width: 768px) {
+            .quick-links-grid.cols-3 { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-brand { justify-content: center; margin-top: 24px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://placehold.co/150x50/1F3456/ffffff?text=CBNR+Branco" alt="Logo CBNR">
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">A Convenção <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Recursos <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="#">Ministérios <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                    <li><a href="calendario.html">Agenda</a></li>
+                    <li><a href="contatos.html">Contatos</a></li>
+                    <li><a href="#">Oferte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Faça parte do que Deus está fazendo no <span class="text-green">Rio Grande do Norte</span>
+                </h1>
+                <p class="hero-subtitle">Sua contribuição impulsiona missões estaduais, capacita líderes, sustenta seminários e transforma comunidades locais.</p>
+                <a href="#dados-contribuicao" class="btn btn-green">
+                    Quero Ofertar
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container page-oferte">
+        
+        <div class="oferte-grid">
+            
+            <div class="oferte-content">
+                <h2>O que é o Plano Cooperativo?</h2>
+                <p>O Plano Cooperativo é o canal pelo qual as igrejas batistas se unem para fazer juntas o que seria impossível realizar sozinhas. É a expressão máxima do nosso compromisso com a Grande Comissão no Rio Grande do Norte, no Brasil e no mundo.</p>
+                
+                <p>Quando a sua igreja, ou você individualmente, devolve o dízimo dos dízimos ou oferta voluntariamente para o Plano Cooperativo, esses recursos são distribuídos estrategicamente para sustentar a obra missionária de forma integral.</p>
+
+                <ul>
+                    <li><strong>Plantação de Igrejas:</strong> Apoio a missionários que estão abrindo novas frentes em cidades não alcançadas do nosso estado.</li>
+                    <li><strong>Formação Teológica:</strong> Sustento do nosso Seminário, garantindo o preparo e excelência dos futuros pastores e líderes.</li>
+                    <li><strong>Ação Social:</strong> Manutenção de projetos humanitários, distribuição de alimentos e apoio a comunidades vulneráveis.</li>
+                    <li><strong>Estrutura Denominacional:</strong> Suporte jurídico, contábil e logístico para auxiliar as igrejas menores ligadas à Convenção.</li>
+                </ul>
+
+                <p>Ao ofertar, você não está apenas doando um valor financeiro; você está se tornando um parceiro ativo na expansão do Reino de Deus. Cada centavo é administrado com transparência, responsabilidade e temor ao Senhor, visando sempre o fortalecimento das igrejas locais.</p>
+
+                <div style="margin-top: 40px;">
+                    <a href="contatos.html" class="btn btn-outline">Fale com a nossa tesouraria</a>
+                </div>
+            </div>
+
+            <div class="donation-card" id="dados-contribuicao">
+                <h3>Dados para Contribuição</h3>
+
+                <div class="pix-section">
+                    <div class="qr-placeholder">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00000000000000" alt="QR Code PIX">
+                    </div>
+                    
+                    <div class="pix-key-box">
+                        <div>
+                            <span style="font-size: 0.8rem; color: var(--gray-500); display: block; margin-bottom: 2px;">Chave PIX (CNPJ)</span>
+                            <code id="pix-key">00.000.000/0001-00</code>
+                        </div>
+                        <button class="copy-btn" onclick="copyPix()">
+                            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bank-details">
+                    <h4>Transferência Bancária</h4>
+                    <div class="bank-info-grid">
+                        <div class="bank-item full-width">
+                            <span class="label">Favorecido</span>
+                            <span class="value">Convenção Batista do RN</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="label">Banco</span>
+                            <span class="value">Banco do Brasil (001)</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="label">Agência</span>
+                            <span class="value">0000-0</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="label">Conta Corrente</span>
+                            <span class="value">00000-0</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="label">CNPJ</span>
+                            <span class="value">00.000.000/0001-00</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <section class="quick-links">
+        <div class="container">
+            <div class="quick-links-grid cols-3">
+                <a href="missoes.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span>Missões</span>
+                </a>
+                <a href="quem-somos.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <span>A Convenção</span>
+                </a>
+                <a href="acervo.html" class="quick-link-card">
+                    <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+                    <span>Recursos</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul class="footer-contact">
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Segunda a sexta: 9h - 18h</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Rua Jundiaí, 513, Tirol, Natal / 59020-120</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> (84) 3222-5501</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> batistasrn@batistasrn.org.br</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-links-wrapper">
+                    <h4>Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><a href="calendario.html">Calendário</a></li>
+                        <li><a href="acervo.html">Biblioteca</a></li>
+                        <li><a href="nossa-historia.html">História</a></li>
+                        <li><a href="#">Missões</a></li>
+                        <li><a href="quem-somos.html">Quem somos</a></li>
+                        <li><a href="#">Oferte</a></li>
+                    </ul>
+                    
+                    <div class="footer-socials">
+                        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07 4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+                        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="footer-col footer-brand">
+                    <img src="https://placehold.co/260x80/1F3456/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Beveloster Consultoria e tecnologia</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="copyToast" class="toast">Chave copiada com sucesso!</div>
+
+    <script>
+        // Função para copiar a chave PIX e exibir o alerta (toast)
+        function copyPix() {
+            const pixText = document.getElementById('pix-key').innerText;
+            navigator.clipboard.writeText(pixText).then(() => {
+                const toast = document.getElementById('copyToast');
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
+                alert("Não foi possível copiar a chave. Selecione o texto manualmente.");
+            });
+        }
+    </script>
+</body>
+</html>
