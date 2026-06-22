@@ -5,257 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CBNR - Convenção Batista do Rio Grande do Norte</title>
     
-    <!-- Google Fonts: Inter (Corpo) e Merriweather (Títulos) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="css/base.css">
+
     <style>
-        /* ==========================================================================
-           DESIGN TOKENS OFICIAIS (Variáveis CSS)
-           ========================================================================== */
-        :root {
-          /* AZUL - Cor primária (Baseado no #1F3456) */
-            --blue-950: rgba(31, 52, 86, 0.80);
-            --blue-900: #132138;
-           --blue-800: #1F3456; /* Cor Central */
-            --blue-700: #2a4775;
-            --blue-600: #385d99;
-            --blue-500: #4b78c2;
-            --blue-400: #789cd6;
-            --blue-100: #d8e3f2;
-            --blue-50:  #edf2f8;
-
-            /* VERDE - Cor de destaque (Baseado no #067530) */
-            --green-900: #033d1a;
-            --green-800: #044a1f;
-            --green-700: #055e26;
-            --green-600: #067530; /* Cor Central */
-            --green-500: #2b7a4b;
-            --green-400: #4d9269;
-            --green-300: #77ae8d;
-            --green-200: #a8ccb6;
-            --green-100: #d1e5d8;
-            --green-50:  #ebf4ee;
-
-            /* NEUTROS */
-            --gray-900: #111827;
-            --gray-700: #374151;
-            --gray-500: #6b7280;
-            --gray-400: #9ca3af;
-            --gray-300: #d1d5db;
-            --gray-200: #e5e7eb;
-            --gray-100: #f3f4f6;
-            --gray-50:  #f9fafb;
-
-            /* TIPOGRAFIA */
-            --font-heading: 'Merriweather', serif;
-            --font-body: 'Inter', sans-serif;
-            
-            /* ESPAÇAMENTOS E BORDAS */
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --transition-base: all 0.3s ease;
-        }
-
-        /* ==========================================================================
-           RESET E BASE
-           ========================================================================== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-        h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        img { max-width: 100%; height: auto; display: block; }
-
-        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        /* ==========================================================================
-           COMPONENTES REUTILIZÁVEIS
-           ========================================================================== */
-        
-        /* HEADER */
-        .site-header { background-color: rgba(31, 52, 86, 0.80); color: var(--gray-50); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
-        .site-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-menu { display: flex; gap: 32px; align-items: center; }
-        .nav-menu a { font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; }
-        .nav-menu a:hover { color: var(--green-400); }
-        .nav-menu svg { width: 16px; height: 16px; fill: currentColor; }
-
-        /* BOTÕES */
-        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: var(--transition-base); border: none; gap: 8px; }
-        .btn-outline-green { background-color: transparent; color: var(--green-600); border: 1px solid var(--green-600); }
-        .btn-outline-green:hover { background-color: var(--green-50); }
-        .btn-outline-white { background-color: transparent; color: white; border: 1px solid white; }
-        .btn-outline-white:hover { background-color: rgba(255,255,255,0.1); }
-        .btn-solid-green { background-color: var(--green-600); color: white; }
-        .btn-solid-green:hover { background-color: var(--green-700); }
-
-        /* FORMULÁRIOS */
-        .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 8px; color: var(--blue-950); }
-        .form-control { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background-color: var(--gray-50); font-family: var(--font-body); font-size: 1rem; color: var(--gray-900); transition: var(--transition-base); }
-        .form-control:focus { outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px var(--green-100); }
-        select.form-control { appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230f172a"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; }
-
-        /* ==========================================================================
-           SEÇÕES DA PÁGINA INICIAL
-           ========================================================================== */
-        
-       /* ==========================================================================
-   HERO SECTION (Atualizado)
-   ========================================================================== */
-.hero { 
-    background-color: var(--blue-950); /* Cor sólida #0f172a */
-    
-    /* Padrão geométrico sutil (grid diagonal) em CSS puro */
-    background-image: 
-        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 48px 48px;
-    background-position: center center;
-    
-    color: white; 
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative; 
-}
-
-/* Overlay com gradiente radial sutil para dar profundidade (vignette) */
-.hero::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; left: 0; right: 0; bottom: 0; 
-    background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.7) 100%);
-    z-index: 1; 
-}
-
-.hero .container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-}
-
-.hero-content { max-width: 600px; }
-.hero-title { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
-.hero-title .text-green { color: var(--green-500); }
-.hero-subtitle { font-size: 1.5rem; font-weight: 500; color: var(--gray-100); line-height: 1.4; }
-
-.hero-dots { display: flex; gap: 8px; justify-content: center; margin-top: 64px; }
-.dot { width: 40px; height: 4px; background-color: var(--gray-500); border-radius: 2px; }
-.dot.active { background-color: var(--green-500); }
+        /* HERO */
+        .hero { background-color: var(--blue-950); color: white; padding: 100px 0; position: relative; }
+        .hero-title { font-size: 3.5rem; line-height: 1.2; margin-bottom: 16px; font-family: var(--font-heading); font-weight: 700; }
+        .hero-title .text-green { color: var(--green-500); }
+        .hero-subtitle { font-size: 1.25rem; color: var(--gray-300); }
+        .hero-dots { display: flex; gap: 8px; margin-top: 40px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background-color: rgba(255,255,255,0.3); }
+        .dot.active { background-color: var(--green-500); }
 
         /* QUICK LINKS */
-        .quick-links { padding: 40px 0; background-color: white; }
+        .quick-links { padding: 40px 0; background-color: var(--gray-50); }
         .quick-links-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .quick-link-card { background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: var(--transition-base); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-        .quick-link-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--green-200); }
-        .quick-link-card svg { width: 48px; height: 48px; fill: var(--blue-950); }
-        .quick-link-card span { font-weight: 600; color: var(--blue-950); font-size: 1.125rem; }
+        .quick-link-card { background: white; padding: 24px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--gray-200); color: var(--blue-800); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: var(--transition-base); text-decoration: none; }
+        .quick-link-card:hover { transform: translateY(-5px); border-color: var(--green-500); }
+        .quick-link-card svg { width: 40px; height: 40px; fill: var(--blue-800); }
 
-        /* NOTÍCIAS */
+        /* SECTIONS & NOTÍCIAS */
+        .section-title { font-size: 2.5rem; color: var(--blue-900); margin-bottom: 32px; text-align: center; font-family: var(--font-heading); }
         .section-noticias { padding: 64px 0; }
-        .section-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--green-600); margin-bottom: 40px; }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
-        .news-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; height: 280px; text-decoration: none; display: block; }
-        .news-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; z-index: 1; }
-        .news-card:hover img { transform: scale(1.05); }
-        .news-card-overlay { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0) 80%); z-index: 2; pointer-events: none; }
-        .news-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; color: white; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; }
-        .news-card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
-        .news-card-date { font-size: 0.875rem; color: var(--gray-300); }
-        .news-card-date span { color: var(--green-400); font-weight: 600; }
+        .news-card { position: relative; border-radius: var(--radius-md); overflow: hidden; height: 300px; display: block; text-decoration: none;}
+        .news-card img { width: 100%; height: 100%; object-fit: cover; }
+        .news-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 1; }
+        .news-card-content { position: absolute; bottom: 0; left: 0; padding: 24px; z-index: 2; color: white; }
+        .news-card-title { font-size: 1.25rem; margin-bottom: 8px; font-weight: 600; font-family: var(--font-body); }
+        .news-card-date { font-size: 0.875rem; color: var(--green-400); }
+        .news-card-date span { color: white; }
         .center-action { text-align: center; }
 
         /* VÍDEOS */
-        .section-videos { background-color: var(--blue-950); padding: 80px 0; color: white; }
-        .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-        .videos-title { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 24px; }
-        .videos-text { font-size: 1.25rem; color: var(--gray-100); margin-bottom: 40px; line-height: 1.5; }
-        .video-placeholder { position: relative; border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; }
-        .video-placeholder img { width: 100%; display: block; }
-        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition-base); }
-        .video-placeholder:hover .play-btn { background-color: var(--green-600); transform: translate(-50%, -50%) scale(1.1); }
-        .play-btn svg { width: 24px; height: 24px; fill: white; margin-left: 4px; }
+        .section-videos { padding: 64px 0; background-color: var(--blue-900); color: white; }
+        .videos-title { font-size: 2.5rem; margin-bottom: 16px; font-family: var(--font-heading); }
+        .videos-text { color: var(--gray-300); margin-bottom: 32px; }
+        .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .video-placeholder { position: relative; border-radius: var(--radius-md); overflow: hidden; line-height: 0; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s ease; }
+        .play-btn:hover { transform: translate(-50%, -50%) scale(1.1); background: var(--green-600); }
+        .play-btn svg { width: 32px; height: 32px; fill: white; margin-left: 4px; }
+        .btn-outline-white { background-color: transparent; color: white; border: 1px solid white; display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); text-decoration: none;}
+        .btn-outline-white:hover { background-color: rgba(255,255,255,0.1); }
 
-        /* IGREJAS E NEWSLETTER */
-        .section-igrejas { padding: 80px 0; }
-        .igrejas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-        .newsletter-box { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 32px; }
-        .newsletter-title { font-size: 1.25rem; font-weight: 700; color: var(--blue-950); margin-bottom: 24px; }
-        .recaptcha-placeholder { border: 1px solid var(--gray-200); background-color: var(--gray-50); padding: 12px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.875rem; color: var(--gray-500); }
+        /* IGREJAS & NEWSLETTER */
+        .section-igrejas { padding: 64px 0; background: var(--gray-50); }
+        .igrejas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--blue-900); font-size: 0.95rem; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-family: var(--font-body); }
+        .form-control:focus { outline: none; border-color: var(--green-600); box-shadow: 0 0 0 2px var(--green-100); }
+        .newsletter-box { background: white; padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--gray-200); }
+        .newsletter-title { font-size: 1.5rem; margin-bottom: 24px; color: var(--blue-900); font-family: var(--font-heading); }
+        .recaptcha-placeholder { display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; border: 1px solid var(--gray-200); padding: 12px; border-radius: 4px; margin-bottom: 24px; }
+        .btn-solid-green { background: var(--green-600); color: white; padding: 12px 24px; border: none; border-radius: var(--radius-md); display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; font-family: var(--font-body); transition: background-color 0.3s ease; }
+        .btn-solid-green:hover { background: var(--green-700); }
 
         /* ESTATÍSTICAS */
-        .section-stats { padding: 0 0 80px; }
+        .section-stats { padding: 48px 0; background: var(--blue-800); color: white; }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-        .stat-item { display: flex; flex-direction: column; align-items: center; }
-        .stat-icon { width: 64px; height: 64px; fill: var(--blue-950); margin-bottom: 16px; }
-        .stat-number { font-size: 3.5rem; font-weight: 700; color: var(--blue-950); line-height: 1; margin-bottom: 8px; }
-        .stat-label { font-size: 1rem; font-weight: 700; color: var(--green-600); text-transform: uppercase; letter-spacing: 1px; }
+        .stat-item { padding: 24px; }
+        .stat-icon { width: 48px; height: 48px; fill: var(--green-500); margin-bottom: 16px; }
+        .stat-number { font-size: 3rem; font-weight: 700; font-family: var(--font-heading); line-height: 1; margin-bottom: 8px; }
+        .stat-label { color: var(--blue-100); text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px; }
 
         /* MAPA */
-        .section-map { width: 100%; background-color: var(--gray-200); display: block; }
-        .section-map img { width: 100%; height: auto; display: block; }
+        .section-map { line-height: 0; }
+        .section-map img { width: 100%; height: 400px; object-fit: cover; }
 
-        /* ==========================================================================
-           FOOTER
-           ========================================================================== */
-        .site-footer { background-color: var(--blue-950); color: var(--gray-300); border-top: 4px solid var(--green-600); padding: 64px 0 24px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 48px; }
-        .footer-col h4 { color: var(--gray-50); font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 24px; }
-        .footer-contact { list-style: none; padding: 0; }
-        .footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.95rem; }
-        .footer-contact svg { width: 20px; height: 20px; fill: var(--green-600); flex-shrink: 0; }
-        .footer-links { list-style: none; padding: 0; }
-        .footer-links li { margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-        .footer-links li::before { content: "•"; color: var(--green-600); font-weight: bold; font-size: 1.2rem; line-height: 1; }
-        .footer-links a { transition: var(--transition-base); }
-        .footer-links a:hover { color: var(--green-400); }
-        .footer-brand img { max-width: 180px; margin-bottom: 24px; display: block; }
-        .footer-socials { display: flex; gap: 16px; }
-        .footer-socials a { color: var(--gray-50); transition: var(--transition-base); display: flex; align-items: center; justify-content: center; }
-        .footer-socials a:hover { color: var(--green-600); }
-        .footer-socials svg { width: 24px; height: 24px; fill: currentColor; }
-        .footer-bottom { border-top: 1px solid var(--gray-700); padding-top: 24px; text-align: center; font-size: 0.875rem; }
-
+        /* RESPONSIVO ESPECÍFICO (INDEX) */
+        @media (max-width: 992px) {
+            .videos-grid, .igrejas-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .quick-links-grid { grid-template-columns: repeat(2, 1fr); }
+            .news-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: 2.5rem; }
+        }
+        @media (max-width: 480px) {
+            .quick-links-grid, .stats-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="site-header">
         <div class="container">
-            <a href="#" class="logo">
-                <img src="https://placehold.co/150x50/1e3a8a/ffffff?text=CBNR+Branco" alt="Logo CBNR">
+            <a href="index.html" class="logo">
+                <img src="https://placehold.co/150x50/1F3456/ffffff?text=CBNR+Branco" alt="Logo CBNR">
             </a>
-            <nav>
-                <ul class="nav-menu">
-                    <li>
-                        <a href="#">A Convenção 
-                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Recursos 
-                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Ministérios 
-                            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                        </a>
-                    </li>
-                    <li><a href="calendario.html">Agenda</a></li>
-                    <li><a href="contatos.html">Contatos</a></li>
-                    <li><a href="#">Oferte</a></li>
-                </ul>
+            
+            <button class="menu-toggle" id="btnMenuOpen" aria-label="Abrir menu">
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <a class="nav-link">A Convenção <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                    <div class="dropdown-menu">
+                        <a href="associacoes.html" class="dropdown-link">Associações</a>
+                        <a href="nossa-historia.html" class="dropdown-link">História</a>
+                        <a href="quem-somos.html" class="dropdown-link">Quem Somos</a>
+                        <a href="associacoes.html" class="dropdown-link">Nossas Igrejas</a>
+                        <a href="coordenadores.html" class="dropdown-link">Coordenadores</a>
+                        <a href="pastores.html" class="dropdown-link">Nossos Pastores</a>
+                        <a href="umhbrn.html" class="dropdown-link">UMHBRN</a>
+                        <a href="ufmbrn.html" class="dropdown-link">UFMBRN</a>
+                        <a href="jubarn.html" class="dropdown-link">JUBARN</a>
+                        <a href="opbb.html" class="dropdown-link">OPBB-RN</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link">Recursos <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                    <div class="dropdown-menu">
+                        <a href="eventos.html" class="dropdown-link">Eventos</a>
+                        <a href="calendario.html" class="dropdown-link">Calendário</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link">Ministérios <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                    <div class="dropdown-menu">
+                        <a href="acervo.html" class="dropdown-link">Biblioteca</a>
+                        <a href="seminario.html" class="dropdown-link">Seminário</a>
+                        <a href="missoes.html" class="dropdown-link">Missões</a>
+                        <a href="oracao.html" class="dropdown-link">Oração</a>
+                    </div>
+                </div>
+
+                <div class="nav-item"><a href="calendario.html" class="nav-link">Agenda</a></div>
+                <div class="nav-item"><a href="contatos.html" class="nav-link">Contatos</a></div>
+                <div class="nav-item"><a href="oferte.html" class="nav-link">Oferte</a></div>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <aside class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <img src="https://placehold.co/120x40/1F3456/ffffff?text=CBNR" alt="Logo CBNR">
+            <button class="close-menu" id="btnMenuClose" aria-label="Fechar menu">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="quem-somos.html" class="mobile-nav-link">A Convenção</a>
+            <a href="associacoes.html" class="mobile-nav-link">Nossas Igrejas</a>
+            <a href="pastores.html" class="mobile-nav-link">Pastores</a>
+            <a href="missoes.html" class="mobile-nav-link">Missões</a>
+            <a href="seminario.html" class="mobile-nav-link">Seminário</a>
+            <a href="calendario.html" class="mobile-nav-link">Agenda</a>
+            <a href="contatos.html" class="mobile-nav-link">Contatos</a>
+            <a href="oferte.html" class="mobile-nav-link" style="color: var(--green-400);">Oferte</a>
+        </nav>
+    </aside>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnOpen = document.getElementById('btnMenuOpen');
+            const btnClose = document.getElementById('btnMenuClose');
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('open');
+            }
+
+            if(btnOpen) btnOpen.addEventListener('click', toggleMenu);
+            if(btnClose) btnClose.addEventListener('click', toggleMenu);
+            if(overlay) overlay.addEventListener('click', toggleMenu);
+        });
+    </script>
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -275,23 +203,22 @@
         </div>
     </section>
 
-    <!-- QUICK LINKS -->
     <section class="quick-links">
         <div class="container">
             <div class="quick-links-grid">
-                <a href="#" class="quick-link-card">
+                <a href="oferte.html" class="quick-link-card">
                     <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     <span>Oferte</span>
                 </a>
-                <a href="#" class="quick-link-card">
+                <a href="missoes.html" class="quick-link-card">
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                     <span>Missões</span>
                 </a>
-                <a href="#" class="quick-link-card">
+                <a href="seminario.html" class="quick-link-card">
                     <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
                     <span>Seminário</span>
                 </a>
-                <a href="#" class="quick-link-card">
+                <a href="calendario.html" class="quick-link-card">
                     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
                     <span>Eventos</span>
                 </a>
@@ -299,36 +226,32 @@
         </div>
     </section>
 
-    <!-- NOTÍCIAS -->
     <section class="section-noticias">
         <div class="container">
             <h2 class="section-title">Notícias</h2>
             
             <div class="news-grid" id="noticias-grid">
-                <!-- Cards injetados via JS -->
-            </div>
+                </div>
 
             <div class="center-action">
-                    <a href="noticias.html" class="btn btn-outline-green">
+                <a href="noticias.html" class="btn btn-outline-green">
                     Ver mais
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                    </a>
-                </button>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- VÍDEOS -->
     <section class="section-videos">
         <div class="container">
             <div class="videos-grid">
                 <div>
                     <h2 class="videos-title">Vídeos</h2>
                     <p class="videos-text">Explore nossa galeria de vídeos. Encontre inspiração, reveja momentos e conecte-se com nossa comunidade.</p>
-                    <button class="btn btn-outline-white">
+                    <a href="#" class="btn btn-outline-white">
                         Ver mais
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                    </button>
+                    </a>
                 </div>
                 <div class="video-placeholder">
                     <img src="https://placehold.co/800x500/e5e7eb/1e3a8a?text=Video+Thumbnail" alt="Vídeo em destaque">
@@ -340,14 +263,12 @@
         </div>
     </section>
 
-    <!-- IGREJAS E NEWSLETTER -->
     <section class="section-igrejas">
         <div class="container">
             <div class="igrejas-grid">
                 
-                <!-- Busca de Igrejas -->
                 <div>
-                    <h2 class="section-title" style="margin-bottom: 24px;">Nossas Igrejas</h2>
+                    <h2 class="section-title" style="margin-bottom: 24px; text-align: left;">Nossas Igrejas</h2>
                     <form action="#">
                         <div class="form-group">
                             <label class="form-label">Associação</label>
@@ -370,7 +291,6 @@
                     </form>
                 </div>
 
-                <!-- Newsletter -->
                 <div class="newsletter-box">
                     <h3 class="newsletter-title">Fique por dentro</h3>
                     <form action="#">
@@ -389,15 +309,14 @@
                             <input type="email" class="form-control">
                         </div>
                         
-                        <!-- reCAPTCHA Mock -->
                         <div class="recaptcha-placeholder">
                             <div style="display: flex; align-items: center; gap: 12px;">
                                 <input type="checkbox" style="width: 24px; height: 24px;">
-                                <span>I'm not a robot</span>
+                                <span style="font-family: var(--font-body); font-size: 0.9rem;">I'm not a robot</span>
                             </div>
                             <div style="text-align: center;">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/120px-RecaptchaLogo.svg.png" alt="reCAPTCHA" style="width: 30px; margin: 0 auto;">
-                                <div style="font-size: 0.6rem; margin-top: 4px;">Privacy - Terms</div>
+                                <div style="font-size: 0.6rem; margin-top: 4px; font-family: var(--font-body);">Privacy - Terms</div>
                             </div>
                         </div>
 
@@ -414,7 +333,6 @@
         </div>
     </section>
 
-    <!-- ESTATÍSTICAS -->
     <section class="section-stats">
         <div class="container">
             <div class="stats-grid">
@@ -442,17 +360,14 @@
         </div>
     </section>
 
-    <!-- MAPA -->
     <section class="section-map">
         <img src="https://placehold.co/1920x400/e5e7eb/9ca3af?text=Mapa+Placeholder+-+Natal/RN" alt="Mapa de Localização">
     </section>
 
-    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 
-                <!-- COLUNA 1 - Contato -->
                 <div class="footer-col">
                     <h4>Contato</h4>
                     <ul class="footer-contact">
@@ -475,24 +390,22 @@
                     </ul>
                 </div>
     
-                <!-- COLUNA 2 - Links Úteis -->
                 <div class="footer-col">
                     <h4>Links Úteis</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Calendário</a></li>
-                        <li><a href="#">História</a></li>
-                        <li><a href="#">Biblioteca</a></li>
-                        <li><a href="#">Missões</a></li>
+                        <li><a href="calendario.html">Calendário</a></li>
+                        <li><a href="nossa-historia.html">História</a></li>
+                        <li><a href="acervo.html">Biblioteca</a></li>
+                        <li><a href="missoes.html">Missões</a></li>
                     </ul>
                 </div>
     
-                <!-- COLUNA 3 - Logo e Redes Sociais -->
                 <div class="footer-col footer-brand">
                     <img src="https://placehold.co/180x60/0f172a/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
                     <div class="footer-socials">
                         <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
                         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
-                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07 4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
                         <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
                         <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
                     </div>
@@ -506,7 +419,6 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -521,7 +433,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+1",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     },
                     {
                         "id": 2,
@@ -529,7 +441,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+2",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     },
                     {
                         "id": 3,
@@ -537,7 +449,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+3",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     },
                     {
                         "id": 4,
@@ -545,7 +457,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+4",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     },
                     {
                         "id": 5,
@@ -553,7 +465,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+5",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     },
                     {
                         "id": 6,
@@ -561,7 +473,7 @@
                         "date": "Jun 6",
                         "year": "2025",
                         "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+6",
-                        "link": "#"
+                        "link": "noticias-detalhe.html"
                     }
                 ]
             };
@@ -577,7 +489,6 @@
                     card.href = item.link;
                     card.className = 'news-card';
 
-                    // Estrutura atualizada com z-index respeitado (img -> overlay -> content)
                     card.innerHTML = `
                         <img src="${item.image}" alt="${item.title}">
                         <div class="news-card-overlay"></div>

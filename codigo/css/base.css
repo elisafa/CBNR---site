@@ -1,0 +1,129 @@
+/* ==========================================================================
+   1. DESIGN TOKENS E VARIÁVEIS BASE
+   ========================================================================== */
+:root {
+    /* AZUL OFICIAL DO PROJETO */
+    --blue-950: rgba(31, 52, 86, 0.95);
+    --blue-900: #132138;
+    --blue-800: #1F3456; 
+    --blue-700: #2a4775;
+    --blue-600: #385d99;
+    --blue-500: #4b78c2;
+    --blue-400: #789cd6;
+    --blue-100: #d8e3f2;
+    --blue-50:  #edf2f8;
+
+    /* VERDE OFICIAL */
+    --green-900: #033d1a;
+    --green-800: #044a1f;
+    --green-700: #055e26;
+    --green-600: #067530; 
+    --green-500: #2b7a4b;
+    --green-400: #4d9269;
+    --green-100: #d1e5d8;
+    --green-50:  #ebf4ee;
+
+    /* NEUTROS */
+    --gray-900: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-300: #d1d5db;
+    --gray-200: #e5e7eb;
+    --gray-100: #f3f4f6;
+    --gray-50:  #f9fafb;
+
+    /* TIPOGRAFIA E ESPAÇAMENTOS */
+    --font-heading: 'Merriweather', serif;
+    --font-body: 'Inter', sans-serif;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition-base: all 0.3s ease;
+}
+
+/* ==========================================================================
+   2. RESET E BASE
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background-color: #ffffff; color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ==========================================================================
+   3. BOTÕES GLOBAIS
+   ========================================================================== */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: var(--transition-base); border: none; gap: 8px; text-decoration: none; }
+.btn-green { background-color: var(--green-600); color: white; }
+.btn-green:hover { background-color: var(--green-700); transform: translateY(-2px); }
+.btn-outline-green { background-color: transparent; color: var(--green-600); border: 1px solid var(--green-600); }
+.btn-outline-green:hover { background-color: var(--green-50); }
+
+/* ==========================================================================
+   4. HEADER, MEGA MENU E MENU MOBILE
+   ========================================================================== */
+.site-header { background-color: var(--blue-950); color: var(--gray-50); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px); }
+.site-header .container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo img { max-width: 150px; }
+
+/* Navegação Desktop */
+.nav-menu { display: flex; gap: 32px; align-items: center; height: 100%; }
+.nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition-base); display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--gray-50); height: 100%; }
+.nav-link:hover { color: var(--green-400); }
+.nav-link svg { width: 16px; height: 16px; fill: currentColor; transition: transform 0.3s ease; }
+
+/* Submenu (Mega Menu Desktop) */
+.dropdown-menu { position: absolute; top: 80px; left: 0; background-color: var(--gray-200); color: var(--blue-800); min-width: 240px; border-radius: 0 0 8px 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; display: flex; flex-direction: column; padding: 16px 0; }
+.nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-item:hover .nav-link svg { transform: rotate(180deg); }
+.dropdown-link { padding: 12px 24px; font-weight: 600; font-size: 0.9rem; color: var(--blue-800); transition: var(--transition-base); text-transform: uppercase; }
+.dropdown-link:hover { background-color: var(--gray-300); color: var(--green-600); }
+
+/* Botão Hambúrguer (Mobile) */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; color: white; padding: 8px; }
+.menu-toggle svg { width: 32px; height: 32px; fill: currentColor; }
+
+/* Offcanvas Sidebar (Mobile) */
+.mobile-sidebar { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; background-color: var(--blue-900); z-index: 1001; transition: transform 0.4s ease; overflow-y: auto; padding: 24px; box-shadow: 4px 0 15px rgba(0,0,0,0.5); }
+.mobile-sidebar.open { transform: translateX(0); }
+.mobile-sidebar-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; margin-bottom: 24px; }
+.close-menu { background: none; border: none; color: white; cursor: pointer; }
+.close-menu svg { width: 32px; height: 32px; fill: currentColor; }
+.mobile-nav { display: flex; flex-direction: column; gap: 16px; }
+.mobile-nav-link { color: white; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: block; }
+.mobile-nav-link:hover { color: var(--green-400); }
+.mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(0,0,0,0.6); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+.mobile-overlay.open { opacity: 1; visibility: visible; }
+
+/* ==========================================================================
+   5. FOOTER GLOBAL
+   ========================================================================== */
+.site-footer { background-color: var(--blue-800); color: white; padding: 64px 0 16px; margin-top: auto; }
+.footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 40px; margin-bottom: 32px; align-items: start; }
+.footer-col h4 { color: white; font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 24px; display: inline-block; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 4px; }
+.footer-contact li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.9rem; }
+.footer-contact svg { width: 20px; height: 20px; fill: transparent; stroke: white; stroke-width: 1.5px; flex-shrink: 0; }
+.footer-links-wrapper { display: flex; flex-direction: column; }
+.footer-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 24px; }
+.footer-links li { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+.footer-links li::before { content: "•"; color: white; font-size: 1.2rem; line-height: 1; }
+.footer-socials { display: flex; gap: 16px; align-items: center; }
+.footer-socials a { color: white; transition: opacity 0.3s ease; }
+.footer-socials a:hover { opacity: 0.7; }
+.footer-socials svg { width: 24px; height: 24px; fill: white; stroke: none; }
+.footer-brand { display: flex; justify-content: flex-end; align-items: center; height: 100%; }
+.footer-brand img { max-width: 260px; display: block; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; text-align: center; font-size: 0.75rem; font-weight: 600; }
+
+/* ==========================================================================
+   6. RESPONSIVIDADE GLOBAL (Header e Footer)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .nav-menu { display: none; } /* Esconde menu desktop */
+    .menu-toggle { display: block; } /* Mostra hamburguer */
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-brand { justify-content: center; margin-top: 24px; }
+}
