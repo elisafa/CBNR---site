@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/base.css">
 
@@ -25,7 +25,7 @@
         .quick-links { padding: 40px 0; background-color: var(--gray-50); }
         .quick-links-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
         .quick-link-card { background: white; padding: 24px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--gray-200); color: var(--blue-800); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: var(--transition-base); text-decoration: none; }
-        .quick-link-card:hover { transform: translateY(-5px); border-color: var(--green-500); }
+        .quick-link-card:hover { transform: translateY(-5px); border-color: var(--green-500); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .quick-link-card svg { width: 40px; height: 40px; fill: var(--blue-800); }
 
         /* SECTIONS & NOTÍCIAS */
@@ -33,7 +33,8 @@
         .section-noticias { padding: 64px 0; }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
         .news-card { position: relative; border-radius: var(--radius-md); overflow: hidden; height: 300px; display: block; text-decoration: none;}
-        .news-card img { width: 100%; height: 100%; object-fit: cover; }
+        .news-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .news-card:hover img { transform: scale(1.05); }
         .news-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 1; }
         .news-card-content { position: absolute; bottom: 0; left: 0; padding: 24px; z-index: 2; color: white; }
         .news-card-title { font-size: 1.25rem; margin-bottom: 8px; font-weight: 600; font-family: var(--font-body); }
@@ -78,7 +79,7 @@
         .section-map { line-height: 0; }
         .section-map img { width: 100%; height: 400px; object-fit: cover; }
 
-        /* RESPONSIVO ESPECÍFICO (INDEX) */
+        /* RESPONSIVO ESPECÍFICO */
         @media (max-width: 992px) {
             .videos-grid, .igrejas-grid { grid-template-columns: 1fr; }
         }
@@ -109,27 +110,38 @@
                 <div class="nav-item">
                     <a class="nav-link">A Convenção <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
                     <div class="dropdown-menu">
-                        <a href="associacoes.html" class="dropdown-link">Associações</a>
-                        <a href="nossa-historia.html" class="dropdown-link">História</a>
-                        <a href="quem-somos.html" class="dropdown-link">Quem Somos</a>
-                        <a href="associacoes.html" class="dropdown-link">Nossas Igrejas</a>
+                        <a href="associacao.html" class="dropdown-link">Associações</a>
+                        
+                        <div class="nav-item-nested">
+                            <a class="dropdown-link" style="cursor: pointer;">Sobre</a>
+                            <div class="dropdown-submenu">
+                                <a href="nossa-historia.html">História</a>
+                                <a href="quem-somos.html">Quem Somos</a>
+                                <a href="associacao.html">Nossas Igrejas</a>
+                            </div>
+                        </div>
+
                         <a href="coordenadores.html" class="dropdown-link">Coordenadores</a>
                         <a href="pastores.html" class="dropdown-link">Nossos Pastores</a>
-                        <a href="umhbrn.html" class="dropdown-link">UMHBRN</a>
-                        <a href="ufmbrn.html" class="dropdown-link">UFMBRN</a>
-                        <a href="jubarn.html" class="dropdown-link">JUBARN</a>
-                        <a href="opbb.html" class="dropdown-link">OPBB-RN</a>
+                        
+                        <div class="nav-item-nested">
+                            <a class="dropdown-link" style="cursor: pointer;">Organizações</a>
+                            <div class="dropdown-submenu">
+                                <a href="umhbrn.html">UMHBRN</a>
+                                <a href="ufmbrn.html">UFMBRN</a>
+                                <a href="jubarn.html">JUBARN</a>
+                                <a href="opbb.html">OPBB-RN</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div class="nav-item">
                     <a class="nav-link">Recursos <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
                     <div class="dropdown-menu">
-                        <a href="eventos.html" class="dropdown-link">Eventos</a>
+                        <a href="calendario.html" class="dropdown-link">Eventos</a>
                         <a href="calendario.html" class="dropdown-link">Calendário</a>
                     </div>
                 </div>
-
                 <div class="nav-item">
                     <a class="nav-link">Ministérios <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
                     <div class="dropdown-menu">
@@ -139,10 +151,9 @@
                         <a href="oracao.html" class="dropdown-link">Oração</a>
                     </div>
                 </div>
-
                 <div class="nav-item"><a href="calendario.html" class="nav-link">Agenda</a></div>
                 <div class="nav-item"><a href="contatos.html" class="nav-link">Contatos</a></div>
-                <div class="nav-item"><a href="oferte.html" class="nav-link">Oferte</a></div>
+                <div class="nav-item"><a href="ofertas.html" class="nav-link">Oferte</a></div>
             </nav>
         </div>
     </header>
@@ -150,40 +161,63 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <aside class="mobile-sidebar" id="mobileSidebar">
         <div class="mobile-sidebar-header">
-            <img src="https://placehold.co/120x40/1F3456/ffffff?text=CBNR" alt="Logo CBNR">
             <button class="close-menu" id="btnMenuClose" aria-label="Fechar menu">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
         <nav class="mobile-nav">
-            <a href="quem-somos.html" class="mobile-nav-link">A Convenção</a>
-            <a href="associacoes.html" class="mobile-nav-link">Nossas Igrejas</a>
-            <a href="pastores.html" class="mobile-nav-link">Pastores</a>
-            <a href="missoes.html" class="mobile-nav-link">Missões</a>
-            <a href="seminario.html" class="mobile-nav-link">Seminário</a>
-            <a href="calendario.html" class="mobile-nav-link">Agenda</a>
-            <a href="contatos.html" class="mobile-nav-link">Contatos</a>
-            <a href="oferte.html" class="mobile-nav-link" style="color: var(--green-400);">Oferte</a>
+            <a href="index.html" class="mobile-nav-link">INÍCIO</a>
+            
+            <div class="mobile-dropdown">
+                <button class="dropdown-toggle">A CONVENÇÃO <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+                <div class="mobile-dropdown-content">
+                    <a href="associacao.html" class="mobile-nav-link">ASSOCIAÇÕES</a>
+                    
+                    <div class="mobile-dropdown">
+                        <button class="dropdown-toggle" style="font-size: 0.95rem;">SOBRE <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+                        <div class="mobile-dropdown-content" style="border-left: none; padding-left: 12px;">
+                            <a href="nossa-historia.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">HISTÓRIA</a>
+                            <a href="quem-somos.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">QUEM SOMOS</a>
+                            <a href="associacao.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">NOSSAS IGREJAS</a>
+                        </div>
+                    </div>
+
+                    <a href="coordenadores.html" class="mobile-nav-link">COORDENADORES</a>
+                    <a href="pastores.html" class="mobile-nav-link">NOSSOS PASTORES</a>
+                    
+                    <div class="mobile-dropdown">
+                        <button class="dropdown-toggle" style="font-size: 0.95rem;">ORGANIZAÇÕES <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+                        <div class="mobile-dropdown-content" style="border-left: none; padding-left: 12px;">
+                            <a href="umhbrn.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">UMHBRN</a>
+                            <a href="ufmbrn.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">UFMBRN</a>
+                            <a href="jubarn.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">JUBARN</a>
+                            <a href="opbb.html" class="mobile-nav-link" style="font-size: 0.85rem; color: var(--gray-300);">OPBB-RN</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-dropdown">
+                <button class="dropdown-toggle">RECURSOS <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+                <div class="mobile-dropdown-content">
+                    <a href="acervo.html" class="mobile-nav-link">BIBLIOTECA</a>
+                    <a href="seminario.html" class="mobile-nav-link">SEMINÁRIO</a>
+                </div>
+            </div>
+
+            <div class="mobile-dropdown">
+                <button class="dropdown-toggle">MINISTÉRIOS <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+                <div class="mobile-dropdown-content">
+                    <a href="missoes.html" class="mobile-nav-link">MISSÕES</a>
+                    <a href="oracao.html" class="mobile-nav-link">ORAÇÃO</a>
+                </div>
+            </div>
+
+            <a href="calendario.html" class="mobile-nav-link">AGENDA</a>
+            <a href="contatos.html" class="mobile-nav-link">CONTATOS</a>
+            <a href="ofertas.html" class="mobile-nav-link">OFERTE</a>
         </nav>
     </aside>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnOpen = document.getElementById('btnMenuOpen');
-            const btnClose = document.getElementById('btnMenuClose');
-            const sidebar = document.getElementById('mobileSidebar');
-            const overlay = document.getElementById('mobileOverlay');
-
-            function toggleMenu() {
-                sidebar.classList.toggle('open');
-                overlay.classList.toggle('open');
-            }
-
-            if(btnOpen) btnOpen.addEventListener('click', toggleMenu);
-            if(btnClose) btnClose.addEventListener('click', toggleMenu);
-            if(overlay) overlay.addEventListener('click', toggleMenu);
-        });
-    </script>
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -206,7 +240,7 @@
     <section class="quick-links">
         <div class="container">
             <div class="quick-links-grid">
-                <a href="oferte.html" class="quick-link-card">
+                <a href="ofertas.html" class="quick-link-card">
                     <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     <span>Oferte</span>
                 </a>
@@ -248,7 +282,7 @@
                 <div>
                     <h2 class="videos-title">Vídeos</h2>
                     <p class="videos-text">Explore nossa galeria de vídeos. Encontre inspiração, reveja momentos e conecte-se com nossa comunidade.</p>
-                    <a href="#" class="btn btn-outline-white">
+                    <a href="acervo.html" class="btn btn-outline-white">
                         Ver mais
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                     </a>
@@ -269,21 +303,21 @@
                 
                 <div>
                     <h2 class="section-title" style="margin-bottom: 24px; text-align: left;">Nossas Igrejas</h2>
-                    <form action="#">
+                    <form action="associacao.html">
                         <div class="form-group">
                             <label class="form-label">Associação</label>
                             <select class="form-control">
                                 <option value="">Escolha uma associação...</option>
-                                <option value="1">Associação 1</option>
-                                <option value="2">Associação 2</option>
+                                <option value="ABA">ABA - Agreste</option>
+                                <option value="ABL">ABL - Leste</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Nome da igreja</label>
-                            <input type="text" class="form-control" placeholder="Buscar por nome (Igreja Batista Zona Sul)...">
+                            <input type="text" class="form-control" placeholder="Buscar por nome...">
                         </div>
                         <div style="text-align: center; margin-top: 24px;">
-                            <button type="button" class="btn btn-outline-green" style="width: 200px;">
+                            <button type="submit" class="btn btn-outline-green" style="width: 200px;">
                                 Buscar
                                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                             </button>
@@ -297,7 +331,7 @@
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div class="form-group">
                                 <label class="form-label">Nome</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Telefone</label>
@@ -306,12 +340,12 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" required>
                         </div>
                         
                         <div class="recaptcha-placeholder">
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" style="width: 24px; height: 24px;">
+                                <input type="checkbox" style="width: 24px; height: 24px;" required>
                                 <span style="font-family: var(--font-body); font-size: 0.9rem;">I'm not a robot</span>
                             </div>
                             <div style="text-align: center;">
@@ -328,7 +362,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>
@@ -371,124 +404,75 @@
                 <div class="footer-col">
                     <h4>Contato</h4>
                     <ul class="footer-contact">
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
-                            Segunda a sexta: 9h - 18h
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
-                            Rua Jundiaí, 513, Tirol, Natal / 59020-120
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M6.6 9.4c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V19c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.4z"/></svg>
-                            (84) 3222-5501
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                            batistasrn@batistasrn.org.br
-                        </li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Segunda a sexta: 9h - 18h</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Rua Jundiaí, 513, Tirol, Natal / 59020-120</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> (84) 3222-5501</li>
+                        <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> batistasrn@batistasrn.org.br</li>
                     </ul>
                 </div>
     
-                <div class="footer-col">
+                <div class="footer-col footer-links-wrapper">
                     <h4>Links Úteis</h4>
                     <ul class="footer-links">
                         <li><a href="calendario.html">Calendário</a></li>
                         <li><a href="nossa-historia.html">História</a></li>
+                        <li><a href="quem-somos.html">Quem somos</a></li>
                         <li><a href="acervo.html">Biblioteca</a></li>
                         <li><a href="missoes.html">Missões</a></li>
+                        <li><a href="ofertas.html">Oferte</a></li>
                     </ul>
-                </div>
-    
-                <div class="footer-col footer-brand">
-                    <img src="https://placehold.co/180x60/0f172a/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca">
                     <div class="footer-socials">
-                        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
-                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
-                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07 4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
-                        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+                        <a href="https://wa.me/558432225501" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.031 2.008c-5.516 0-9.998 4.48-9.998 9.998 0 1.764.458 3.482 1.33 5.002L2 22l5.14-1.348c1.474.804 3.146 1.228 4.89 1.228 5.515 0 9.998-4.48 9.998-9.998s-4.483-9.998-9.998-9.998zm0 18.32c-1.49 0-2.95-.398-4.23-1.15l-.304-.18-3.14.824.84-3.06-.198-.315c-.825-1.31-1.26-2.82-1.26-4.36 0-4.59 3.736-8.326 8.326-8.326 4.59 0 8.326 3.736 8.326 8.326s-3.736 8.326-8.326 8.326zm4.57-6.24c-.25-.125-1.486-.734-1.716-.818-.23-.084-.398-.125-.565.125-.167.25-.65 8.18-.796.985-.146.167-.292.187-.542.062-1.07-.43-2.05-1.01-2.86-1.72-.62-.54-1.04-1.2-1.25-1.45-.21-.25-.02-.385.105-.51.11-.11.25-.29.375-.435.125-.146.167-.25.25-.417.084-.167.042-.312-.02-.437-.063-.125-.565-1.36-.774-1.86-.204-.49-.41-.424-.565-.43-.146-.006-.312-.006-.48-.006-.167 0-.44.063-.67.313-.23.25-.88.86-.88 2.1s.9 2.43 1.02 2.6c.125.167 1.77 2.7 4.29 3.79 1.63.7 2.3.78 3.15.65.94-.14 2.14-.87 2.44-1.72.3-.85.3-1.58.21-1.73-.08-.15-.3-.24-.55-.36z"/></svg></a>
+                        <a href="https://instagram.com/cbnrn" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07 4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm7.85-11.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="https://facebook.com/cbnrn" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3H10V9.5C10 7.1 11.4 5.8 13.5 5.8c1.06 0 2.17.19 2.17.19v2.38h-1.22c-1.2 0-1.58.75-1.58 1.52V12h2.7l-.43 3H12v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+                        <a href="https://youtube.com/cbnrn" target="_blank" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
                     </div>
                 </div>
     
+                <div class="footer-col footer-brand" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
+                    <img src="https://placehold.co/240x80/0f172a/ffffff?text=Logo+CBNR" alt="Logo CBNR Branca" style="max-width: 200px; margin-bottom: 16px;">
+                </div>
             </div>
     
             <div class="footer-bottom">
-                <p>&copy; 2025 CBNR. Todos os direitos reservados.</p>
+                <p>&copy; 2026 Convenção Batista do Rio Grande do Norte. Todos os direitos reservados. | Desenvolvido por Beveloster Consultoria e Tecnologia.</p>
             </div>
         </div>
     </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // TODO: substituir por fetch da API
-            // Mock JSON simulando o retorno de uma API de Notícias
-            const mockNewsData = {
-                "status": "success",
-                "data":[
-                    {
-                        "id": 1,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+1",
-                        "link": "noticias-detalhe.html"
-                    },
-                    {
-                        "id": 2,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+2",
-                        "link": "noticias-detalhe.html"
-                    },
-                    {
-                        "id": 3,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+3",
-                        "link": "noticias-detalhe.html"
-                    },
-                    {
-                        "id": 4,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+4",
-                        "link": "noticias-detalhe.html"
-                    },
-                    {
-                        "id": 5,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+5",
-                        "link": "noticias-detalhe.html"
-                    },
-                    {
-                        "id": 6,
-                        "title": "Capacitação Para escola bíblica",
-                        "date": "Jun 6",
-                        "year": "2025",
-                        "image": "https://placehold.co/600x400/374151/ffffff?text=Noticia+6",
-                        "link": "noticias-detalhe.html"
-                    }
-                ]
-            };
+            // Lógica do Menu Mobile Global e Sanfonas
+            const btnOpen = document.getElementById('btnMenuOpen');
+            const btnClose = document.getElementById('btnMenuClose');
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            function toggleMenu() { sidebar.classList.toggle('open'); overlay.classList.toggle('open'); }
+            if(btnOpen) btnOpen.addEventListener('click', toggleMenu);
+            if(btnClose) btnClose.addEventListener('click', toggleMenu);
+            if(overlay) overlay.addEventListener('click', toggleMenu);
+
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+
+            // Mock de Notícias
+            const mockNewsData = [
+                { id: 1, title: "Capacitação Para escola bíblica", date: "Jun 6", year: "2025", image: "https://placehold.co/600x400/374151/ffffff?text=Noticia+1", link: "noticias-detalhe.html" },
+                { id: 2, title: "Ação Social no Sertão Potiguar", date: "Mai 20", year: "2025", image: "https://placehold.co/600x400/374151/ffffff?text=Noticia+2", link: "noticias-detalhe.html" },
+                { id: 3, title: "Encontro de Liderança Jovem", date: "Abr 15", year: "2025", image: "https://placehold.co/600x400/374151/ffffff?text=Noticia+3", link: "noticias-detalhe.html" }
+            ];
 
             const newsContainer = document.getElementById('noticias-grid');
-
-            // Função para renderizar as notícias na tela
-            function renderNews(items) {
-                newsContainer.innerHTML = '';
-
-                items.forEach(item => {
+            if(newsContainer) {
+                mockNewsData.forEach(item => {
                     const card = document.createElement('a');
                     card.href = item.link;
                     card.className = 'news-card';
-
                     card.innerHTML = `
                         <img src="${item.image}" alt="${item.title}">
                         <div class="news-card-overlay"></div>
@@ -497,16 +481,9 @@
                             <div class="news-card-date">${item.date}, <span>${item.year}</span></div>
                         </div>
                     `;
-
                     newsContainer.appendChild(card);
                 });
             }
-
-            // Simula o tempo de resposta da API
-            setTimeout(() => {
-                renderNews(mockNewsData.data);
-            }, 300);
-
         });
     </script>
 </body>
